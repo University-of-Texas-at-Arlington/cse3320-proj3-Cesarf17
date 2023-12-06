@@ -107,12 +107,12 @@ int sys_set_page_allocator(void)
     }
     // please remove the following 
     // when you start implementing your page allocator
-    if (page_allocator_type == 1)
-    {
-        cprintf("Your lazy allocator has not been implemented!\n");
-	return -1;
-    }
-    return 0;
+  //   if (page_allocator_type == 1)
+  //   {
+  //       cprintf("Your lazy allocator has not been implemented!\n");
+	// return -1;
+  //   }
+     return 0;
 }
 
 // CS 3320 shared memory

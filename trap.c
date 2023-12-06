@@ -14,6 +14,8 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
 
+int mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm);
+
 void
 tvinit(void)
 {
@@ -48,10 +50,21 @@ trap(struct trapframe *tf)
  // CS 3320 project 3
  // You might need to change the folloiwng default page fault handling
  // for your project 3
- if(tf->trapno == T_PGFLT){                 // CS 3320 project 3
-    uint faulting_va;                       // CS 3320 project 3
-    faulting_va = rcr2();                   // CS 3320 project 3
-    cprintf("Unhandled page fault for va:0x%x!\n", faulting_va);     // CS 3320 project 3
+ if(tf->trapno == T_PGFLT)
+ {
+    char *mem;
+    
+    mem = kalloc();
+    if(mem == 0)
+    {
+      cprintf("Out of memory\n");
+      return;
+    }
+    memset(mem, 0, PGSIZE);
+
+    uint a = PGROUNDDOWN(rcr2());
+    mappages(proc->pgdir, (char*) a, PGSIZE, v2p(mem), PTE_W | PTE_U);
+    return;
  }
 
 

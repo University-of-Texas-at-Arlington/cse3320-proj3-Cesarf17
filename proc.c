@@ -7,7 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 
-int page_allocator_type = 0;   // CS 3320 project 3
+int page_allocator_type = 1;   // CS 3320 project 3
 
 struct {
   struct spinlock lock;
@@ -129,6 +129,7 @@ growproc(int n)
   switchuvm(proc);
   return 0;
 }
+
 
 // Create a new process copying p as the parent.
 // Sets up stack to return as if from system call.

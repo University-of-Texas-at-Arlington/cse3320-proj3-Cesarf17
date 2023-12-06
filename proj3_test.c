@@ -46,6 +46,7 @@ main(int argc, char *argv[])
 	exit();
     }
 
+
     //=========================
     size = 10;
     printf(1, "\n=========== TEST 1: sbrk(%d) ===========\n", size);
